@@ -9,13 +9,13 @@ var rl = readline.createInterface({
 });
 
 // request three words in a green terminal and save them in variables
-rl.question('Enter the first word: ', (firstWord:string) => {
+rl.question('Enter the first word: ', (firstWord) => {
     process.stdout.write('\033c');
-    rl.question("Enter the second word: ", (secondWord:string) => {
+    rl.question("Enter the second word: ", (secondWord) => {
         process.stdout.write('\033c');
-        rl.question("Enter the result word: ", (resultWord:string) => {
+        rl.question("Enter the result word: ", (resultWord) => {
             process.stdout.write('\033c');
-            //  print thinking ... in blue
+            //  print thinking ... in blueword
             console.log('\x1b[34m%s\x1b[0m', 'Solving 🧠 ...');
             // using cryptarithmetic get all posible solutions
             var solutions = cryptarithmetic(firstWord, secondWord, resultWord);
@@ -54,7 +54,7 @@ rl.question('Enter the first word: ', (firstWord:string) => {
 });
 
 // cryptarithmetic function
-const cryptarithmetic = (firstWord: string, secondWord: string, resultWord: string) =>  {
+const cryptarithmetic = (firstWord, secondWord, resultWord) =>  {
     //  get all unique letters in the words
     var letters = getLetters(firstWord, secondWord, resultWord);
     //  get all posible numbers for the letters
@@ -66,13 +66,13 @@ const cryptarithmetic = (firstWord: string, secondWord: string, resultWord: stri
 
 // get all unique letters in the words
 
-const getLetters = (firstWord: string, secondWord: string, resultWord: string) => {
-    let letters:string[][] = [];
+const getLetters = (firstWord, secondWord, resultWord) => {
+    let letters = [];
     var words = [firstWord, secondWord, resultWord];
     for (var i = 0; i < words.length; i++) {
         for (var j = 0; j < words[i].length; j++) {
-            if (letters.indexOf(words[i][j] as unknown as string[]) == -1) {
-                letters.push(words[i][j]  as unknown as string[]);
+            if (letters.indexOf(words[i][j]) == -1) {
+                letters.push(words[i][j]);
             }
         }
     }
@@ -81,8 +81,8 @@ const getLetters = (firstWord: string, secondWord: string, resultWord: string) =
 
 // get all posible numbers for the letters
 
-const getNumbers = (letters:string[][]) => {
-    var numbers:number[] = [];
+const getNumbers = (letters) => {
+    var numbers = [];
     for (var i = 0; i < 10; i++) {
         numbers.push(i);
     }
@@ -91,12 +91,12 @@ const getNumbers = (letters:string[][]) => {
 
 // get all posible solutions
 
-const getSolutions = (firstWord:string, secondWord:string, resultWord:string, letters:string[][], numbers:number[][]) => {
-    var solutions:{}[] = [];
+const getSolutions = (firstWord, secondWord, resultWord, letters, numbers) => {
+    var solutions = [];
     for (var i = 0; i < numbers.length; i++) {
         var solution = {};
         for (var j = 0; j < letters.length; j++) {
-            solution[letters[j] as unknown as number] = numbers[i][j];
+            solution[letters[j]] = numbers[i][j];
         }
         if (checkSolution(firstWord, secondWord, resultWord, solution)) {
             solutions.push(solution);
@@ -107,8 +107,8 @@ const getSolutions = (firstWord:string, secondWord:string, resultWord:string, le
 
 //  define permute
 
-const permute = (input:number[], length: number) => {
-    var result:number[][] = [];
+const permute = (input, length) => {
+    var result = [];
     for (var i = 0; i < input.length; i++) {
         if (length == 1) {
             result.push([input[i]]);
